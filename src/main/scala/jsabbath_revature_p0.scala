@@ -132,7 +132,7 @@ object databaseAttempt {
     
     def printMenu() = {
        println
-       println(s"${MAGENTA}Scroll up to view contents or choose an option below:${RESET}")
+       println(s"${BLUE}Scroll up to view contents or choose an option below:${RESET}")
        println(s"${YELLOW}A:  Add Movie\nD:  Delete Movie\nS:  Stat Options\nX:  Quit\n${RESET}\n")
     }
     
@@ -243,13 +243,13 @@ object databaseAttempt {
         val language = "LANGUAGE"
         val genre = "GENRE"
         val rating = "RATING"
-        println(s"${MAGENTA}${BOLD}${UNDERLINED}%-36s%-6s%-16s%12s%20s%13s %14s${RESET}".format(title,year,run_time,director,language, genre, rating))
+        println(s"${BLUE}${BOLD}${UNDERLINED}%-36s%-6s%-16s%12s%20s%13s %14s${RESET}".format(title,year,run_time,director,language, genre, rating))
     }
     
     //Print Stats Page Menu
     def statsPage = {
         println
-        println(s"${MAGENTA}Please Choose a Stat from the Options Below: ${RESET}")
+        println(s"${BLUE}Please Choose a Stat from the Options Below: ${RESET}")
         println(s"${YELLOW}1: Top Directors\n2: Top Years\n3: Top MPAA Ratings\n4: Top Genres\nM: Main Menu\n${RESET}")
         
         var choice = scala.io.StdIn.readLine
@@ -278,7 +278,7 @@ object databaseAttempt {
             choice match {
                 case "1" => {
                                 println;println
-                                println(s"${UNDERLINED}${MAGENTA}Top Directors${RESET}")
+                                println(s"${UNDERLINED}${BLUE}Top Directors${RESET}")
                                 var query = "SELECT count(*) as number, director1, director2  from movies group by director2 order by number desc limit 5";
                                 val rs = statement.executeQuery(query)
                                 while(rs.next) {
@@ -292,7 +292,7 @@ object databaseAttempt {
                              
                 case "2" => {   
                                 println;println
-                                println(s"${UNDERLINED}${MAGENTA}Top Years${RESET}")
+                                println(s"${UNDERLINED}${BLUE}Top Years${RESET}")
                                 var query = "SELECT count(*) as number, release_year from movies group by release_year order by number desc limit 5"
                                 val rs = statement.executeQuery(query)
                                 while(rs.next) {
@@ -305,7 +305,7 @@ object databaseAttempt {
                             
                 case "3" => {
                                 println;println
-                                println(s"${UNDERLINED}${MAGENTA}Top Ratings${RESET}")
+                                println(s"${UNDERLINED}${BLUE}Top Ratings${RESET}")
                                 var query = "SELECT count(*) as number, rating from movies group by rating order by number desc limit 5"
                                 val rs = statement.executeQuery(query)
                                 while(rs.next) {
@@ -318,7 +318,7 @@ object databaseAttempt {
                 
                 case "4" => {
                                 println;println
-                                println(s"${UNDERLINED}${MAGENTA}Top Genres${RESET}")
+                                println(s"${UNDERLINED}${BLUE}Top Genres${RESET}")
                                 var query = "SELECT count(*) as number, genre from movies group by genre order by number desc limit 5"
                                 val rs = statement.executeQuery(query)
                                 while(rs.next) {
