@@ -8,35 +8,29 @@ import java.sql.SQLException
 object databaseAttempt {
    def main(args:Array[String])= {
    
-      
- 
-   
-	//connect to database named "moviesTest" on default port of localhost
+   //connect to database named "moviesTest" on default port of localhost
    val url = "jdbc:mysql://localhost/moviesTest?autoReconnect=true&useSSL=false"
    val driver = "com.mysql.cj.jdbc.Driver"
    val username = "root"
    val password = "venusawake"
    var connection: Connection = DriverManager.getConnection(url, username, password)
-   //printWelcome
+   
+   printWelcome
    printHeading
    var library = initialQuery(url, driver, username, password, connection)
    printMenu
-   //for(e <- library) println(e) 
-  // library foreach{row => row foreach print; println}
-   //for(e <- library)(i <- e) print("%-35s %-5d %-10s %12s %-15s %-15s %-13s %-10s" format e)
-
-   //val librarySorted = library.sortBy(_(1).asInstanceOf[Int])
-   //print(librarySorted)
    var choice = scala.io.StdIn.readLine
    
    while(choice != "X" && choice != "x") { 
         
         mainMenu(choice)
         println
-        println("Choose Again")
         choice = readLine
-    }        
-  
+    }       
+    
+    println;println;println
+    printGoodbye
+    Thread.sleep(2000)
   
 }
 
@@ -73,18 +67,11 @@ object databaseAttempt {
         println()
     }
     
-    def cat(filename: String) = using(Source.fromFile(filename)) { source => {
-        for (line <- source.getLines) println(line)
-    }}
     
-    def using[A <: { def close(): Unit }, B](param: A)(f: A => B): B =
-    try {
-      f(param)
-    } finally {
-      param.close()
-    }
     
     def printWelcome() = {
+        for(a <- 1 to 35) println
+        
         println("oooooo   oooooo     oooo oooooooooooo ooooo          .oooooo.     .oooooo.   ooo        ooooo oooooooooooo")
         println(" `888.    `888.     .8'  `888'     `8 `888'         d8P'  `Y8b   d8P'  `Y8b  `88.       .888' `888'     `8")
         println("  `888.   .8888.   .8'    888          888         888          888      888  888b     d'888   888         ")
@@ -92,31 +79,57 @@ object databaseAttempt {
         println("    `888.8'  `888.8'      888    \"     888         888          888      888  8  `888'   888   888    \"   ")
         println("     `888'    `888'       888       o  888       o `88b    ooo  `88b    d88'  8    Y     888   888       o")
         println("      `8'      `8'       o888ooooood8 o888ooooood8  `Y8bood8P'   `Y8bood8P'  o8o        o888o o888ooooood8")
-       
-              Thread.sleep(2000)
+ 
+            println;println;println;println
+            Thread.sleep(2000)
+        
+        println("    .             ")
+        println("  .o8             ")
+        println(".o888oo  .ooooo.  ")
+        println("  888   d88' `88b ")
+        println("  888   888   888 ")
+        println("  888 . 888   888 ")
+        println("  \"888\" `Y8bod8P' ")
+        
+            println;println;println;println  
+            Thread.sleep(2000)
 
-       for(a <- 1 to 35) println
-       cat("./src/resources/welcome")
-       Thread.sleep(2000)
-       cat("./src/resources/to")
-       Thread.sleep(2000)
+        println("8b        d8      ,ad8888ba,      88b           d88    88888888ba,      88888888ba   ")
+        println(" Y8,    ,8P      d8\"'    `\"8b     888b         d888    88      `\"8b     88      \"8b  ")
+        println("  Y8,  ,8P      d8'        `8b    88`8b       d8'88    88        `8b    88      ,8P  ")
+        println("   \"8aa8\"       88          88    88 `8b     d8' 88    88         88    88aaaaaa8P'  ")
+        println("    `88'        88          88    88  `8b   d8'  88    88         88    88\"\"\"\"\"\"8b,  ")
+        println("     88         Y8,        ,8P    88   `8b d8'   88    88         8P    88      `8b  ")
+        println("     88          Y8a.    .a8P     88    `888'    88    88      .a8P     88      a8P  ")
+        println("     88           `\"Y8888Y\"'      88     `8'     88    88888888Y\"'      88888888P\"   ")
 
-       cat("./src/resources/yomdb")
-       Thread.sleep(1500)
-       cat("./src/resources/yomdb2")
-
-       Thread.sleep(2000)
-       cat("./src/resources/yomdb3")
-       
-       Thread.sleep(3000)
-       for(a <- 1 to 5) println
+            println;println;println;println  
+            Thread.sleep(2000)
+            println("    *Your Own Movie Database")
+            Thread.sleep(1000)
+            println("    **Loading Movie List")
+            Thread.sleep(3000)
+            for(a <- 1 to 5) println
     }
+    
+    def printGoodbye = {
+        for(a <- 1 to 35) println
+        
+        println("  .oooooo.                              .o8   .o8                             .o. ")
+        println(" d8P'  `Y8b                            \"888  \"888                             888 ")
+        println("888            .ooooo.   .ooooo.   .oooo888   888oooo.  oooo    ooo  .ooooo.  888 ")
+        println("888           d88' `88b d88' `88b d88' `888   d88' `88b  `88.  .8'  d88' `88b Y8P ")
+        println("888     ooooo 888   888 888   888 888   888   888   888   `88..8'   888ooo888 `8' ")
+        println("`88.    .88'  888   888 888   888 888   888   888   888    `888'    888    .o .o. ")
+        println(" `Y8bood8P'   `Y8bod8P' `Y8bod8P' `Y8bod88P\"  `Y8bod8P'     .8'     `Y8bod8P' Y8P ")
+        println("                                                        .o..P'                    ")
+        println("                                                        `Y8P'                     ")
+            }
     
     def printMenu() = {
        println
        println(s"${MAGENTA}Scroll up to view contents or choose an option below:${RESET}")
-       println(s"${YELLOW}A:  Add Movie\nD:  Delete Movie\nU:  Update Movie\nS:  Stat Options\nX:  Quit\n${RESET}\n\n")
-       println;println
+       println(s"${YELLOW}A:  Add Movie\nD:  Delete Movie\nS:  Stat Options\nX:  Quit\n${RESET}\n\n")
     }
     
     def mainMenu(action: String) = {
@@ -124,13 +137,19 @@ object databaseAttempt {
             case "A" | "a" => addMovie
             case "D" | "d" => 
             case "U" | "u" => println("Update Movie")
-            case "S" | "s" => println("Stats Page")
+            case "S" | "s" => statsPage
             case "X" | "x" => println("Exiting")
             case _ => println("Please Choose one of the options above")
         }
     }
     
+    //Fill fields for Added movie and Call Dispatching method movetoDB
     def addMovie = {
+        val url = "jdbc:mysql://localhost/moviesTest?autoReconnect=true&useSSL=false"
+        val driver = "com.mysql.cj.jdbc.Driver"
+        val username = "root"
+        val password = "venusawake"
+        var connection: Connection = DriverManager.getConnection(url, username, password)
         println("Add Movie")
         print("Enter movie title: ")
         val title = scala.io.StdIn.readLine
@@ -154,20 +173,21 @@ object databaseAttempt {
         println("Confirm Add? Y/N?")
         val choice = scala.io.StdIn.readLine
         choice match { 
-            case "Y" | "y" => placeHolder(title,year,run_time,director1,director2,lang, genre,rating)
-            case "N" | "n" => println; println; printMenu
+            case "Y" | "y" => movetoDB(title,year,run_time,director1,director2,lang, genre,rating)
+            case "N" | "n" => { println(s"${RED}Operation Aborted. Returning to Home Screen${RESET}")
+                                Thread.sleep(1000)
+                                initialQuery(url, driver, username, password, connection)
+                                println; println; printMenu
+                                }
             case _ => println ("Please enter Y or N")
         }
         
     }
-    
-    /*def addMovie(url:String, driver:String, userName:String, password:String, connection:Connection):Int = {
-        6
-    }*/
-    
-    def placeHolder(title:String,year:Int,run_time:Int,director1:String,director2:String,language:String, genre:String,rating:String) = {
+   
+    //Save the added movie to the DB
+    def movetoDB(title:String,year:Int,run_time:Int,director1:String,director2:String,language:String, genre:String,rating:String) = {
 
-    println("PLACEHOLDER")
+    
         try {
             
             val url = "jdbc:mysql://localhost/moviesTest?autoReconnect=true&useSSL=false"
@@ -208,17 +228,130 @@ object databaseAttempt {
         }
     }
     
+    //print DB Field Header
     def printHeading() {
  
-          val title = "TITLE"
-          val director = "DIRECTOR"
-          val year = "YEAR"
-          val run_time = "RUN TIME"
-          val language = "LANGUAGE"
-          val genre = "GENRE"
-          val rating = "RATING"
-          println(s"${MAGENTA}${BOLD}${UNDERLINED}%-36s%-6s%-16s%12s%20s%13s %14s${RESET}".format(title,year,run_time,director,language, genre, rating))
+        val title = "TITLE"
+        val director = "DIRECTOR"
+        val year = "YEAR"
+        val run_time = "RUN TIME"
+        val language = "LANGUAGE"
+        val genre = "GENRE"
+        val rating = "RATING"
+        println(s"${MAGENTA}${BOLD}${UNDERLINED}%-36s%-6s%-16s%12s%20s%13s %14s${RESET}".format(title,year,run_time,director,language, genre, rating))
     }
-   }
+    
+    //Print Stats Page Menu
+    def statsPage = {
+        println
+        println(s"${MAGENTA}Please Choose a Stat from the Options Below: ${RESET}")
+        println(s"${YELLOW}1: Top Directors\n2: Top Decades\n3: Top Genres\n4: Top MPAA Ratings\nM: Main Menu\n${RESET}")
+        
+        var choice = scala.io.StdIn.readLine
+        
+        choice match {
+            case "1" | "2" | "3" | "4" | "M" | "m" => getStats(choice)
+            case _ => println("Please Choose a Stat Above or M to Return to the Main Menu")
+        }
+        println
+        
+    }
+    
+    //Process Stat Choice 
+    def getStats(choice: String) {
+        
+        
+        try {
+            
+            val url = "jdbc:mysql://localhost/moviesTest?autoReconnect=true&useSSL=false"
+            val driver = "com.mysql.cj.jdbc.Driver"
+            val username = "root"
+            val password = "venusawake"
+            var connection: Connection = DriverManager.getConnection(url, username, password)
+            Class.forName(driver)
+            val statement = connection.createStatement
+            choice match {
+                case "1" => {
+                                println;println
+                                println(s"${UNDERLINED}${MAGENTA}Top Directors${RESET}")
+                                var query = "SELECT count(*) as number, director1, director2  from movies group by director2 order by number desc limit 5";
+                                val rs = statement.executeQuery(query)
+                                while(rs.next) {
+                                    val count = rs.getInt("number")      
+                                    val director1 = rs.getString("director1")
+                                    val director2 = rs.getString("director2")
+                                    println("%-12s %-20s %-3d".format(director1, director2, count))
+                                }
+                                statsPage
+                            }
+                             
+                case "2" => {   
+                                println;println
+                                println(s"${UNDERLINED}${MAGENTA}Top Years${RESET}")
+                                var query = "SELECT count(*) as number, release_year from movies group by release_year order by number desc limit 5"
+                                val rs = statement.executeQuery(query)
+                                while(rs.next) {
+                                    val count = rs.getInt("number")
+                                    val year = rs.getInt("release_year")
+                                    println("%-8d  %-5d".format(year, count))  
+                                }
+                                statsPage                             
+                }
+                            
+                case "3" => {
+                                println;println
+                                println(s"${UNDERLINED}${MAGENTA}Top Ratings${RESET}")
+                                var query = "SELECT count(*) as number, rating from movies group by rating order by number desc limit 5"
+                                val rs = statement.executeQuery(query)
+                                while(rs.next) {
+                                    val count = rs.getInt("number")
+                                    val rating = rs.getString("rating")
+                                    println("%-5s %-5d".format(rating, count)) 
+                                }
+                                statsPage
+                }
+                
+                case "4" => {
+                                println;println
+                                println(s"${UNDERLINED}${MAGENTA}Top Genres${RESET}")
+                                var query = "SELECT count(*) as number, genre from movies group by genre order by number desc limit 5"
+                                val rs = statement.executeQuery(query)
+                                while(rs.next) {
+                                    val count = rs.getInt("number")
+                                    val rating = rs.getString("genre")
+                                    println("%-10s%-5d".format(rating, count))
+                                }
+                                statsPage
+                }
+                            
+                case "M" | "m" => { 
+                                println;println
+                                printHeading; initialQuery(url, driver, username, password, connection);  
+                                printMenu 
+                }
+                
+                case _ => { 
+                            println("Invalid Selection. Reloading DB")
+                            initialQuery(url, driver, username, password, connection)
+                }
+            }
+        }
+        catch 
+        {
+            case e:SQLException => e.printStackTrace
+        }
+        
+        
+        
+    }
+    
+    //Abandoned Print Methods
+    //for(e <- library) println(e) 
+  // library foreach{row => row foreach print; println}
+   //for(e <- library)(i <- e) print("%-35s %-5d %-10s %12s %-15s %-15s %-13s %-10s" format e)
+
+   //val librarySorted = library.sortBy(_(1).asInstanceOf[Int])
+   //print(librarySorted)
+}
 
 
